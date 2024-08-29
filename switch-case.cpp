@@ -7,6 +7,11 @@ using namespace std;
 //    char op;
     cin>>n;
 //    cin>>a>>b>>op;
+
+/*Continue is not valid statement within case block as when the flow of code comes down to it and try to
+ execute it, because of continue statement it would skip and re-iterate and execution will continue for 
+ indefinite amount of time. For this purpose the break statement is valid*/
+
 //Simple Calculator
     /*switch (op) {
         case '+': 
@@ -34,7 +39,7 @@ using namespace std;
 
 //n amount of money to num of 100, 50, 20 & 1 rs notes
 
-/*switch (1) {
+switch (1) {
 
     case 1: 
         cout<<"Rs100 notes: "<<n/100<<endl;
@@ -48,9 +53,7 @@ using namespace std;
     case 4: 
         cout<<"Rs1 notes: "<<n<<endl;
 
-}*/
-
-//
+}
 
     return 0;
  }
