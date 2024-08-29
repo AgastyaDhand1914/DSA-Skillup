@@ -27,12 +27,32 @@ bool Prime(int n) {
 
 }
 
+//nth term of AP
+int nthAP(int n) {
+    return (3*n +7);
+}
+
+//count total set bits (1s)
+
+int count_setbits(int n) {
+    int count = 0;
+
+    while(n!=0) {
+        int bit1 = n&1;
+        n>>=1;
+        if (bit1 == 1) {
+            count+=1;
+        }
+    }
+    return count;
+}
+
 int main() {
 
     int n, r;
     cin>>n>>r;
-    cout<<fact(n)<<endl<<fact(r)<<endl;
-    cout<<nCr(n, r)<<endl;
+    cout<<n<<" factorial is: "<<fact(n)<<endl<<r<<" factorial is: "<<fact(r)<<endl;
+    cout<<"nCr is: "<<nCr(n, r)<<endl;
     
     if (Prime(n)==1) {
         cout<<n<<" is Prime"<<endl;
@@ -41,5 +61,7 @@ int main() {
         cout<<n<<" is not Prime"<<endl;
     }
 
+    cout<<"n term of AP is: "<<nthAP(n)<<endl;
+    cout<<"Total set bits (1s) are: "<<(count_setbits(n) + count_setbits(r));
     return 0;
 }
