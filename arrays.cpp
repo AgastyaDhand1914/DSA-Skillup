@@ -83,8 +83,6 @@ void RevArr(int arr[], int size) {
 
 //Reversing alternate terms of array
 void RevAltArr(int arr[], int size) {
-    int begin = 0;
-    int end = size - 1;
     for (int i = 0; i < size-1; i+=2) {
         int swapper;
         swapper =arr[i+1];
