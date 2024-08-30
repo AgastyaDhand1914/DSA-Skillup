@@ -81,6 +81,20 @@ void RevArr(int arr[], int size) {
     cout<<"Array reversed"<<endl;
 }
 
+//Reversing alternate terms of array
+void RevAltArr(int arr[], int size) {
+    int begin = 0;
+    int end = size - 1;
+    for (int i = 0; i < size-1; i+=2) {
+        int swapper;
+        swapper =arr[i+1];
+        arr[i+1] = arr[i];
+        arr[i] =swapper;
+    }
+    cout<<"Array alternate elements were reversed"<<endl;
+}
+
+
 int main() {
 
 // inputting array
@@ -108,5 +122,8 @@ int main() {
     cout<<endl;
     RevArr(arr, n);
     PrintArr(arr, n);
+    RevAltArr(arr, n);
+    PrintArr(arr, n);
+
     return 0;
 }
