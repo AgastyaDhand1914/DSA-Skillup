@@ -92,6 +92,41 @@ void RevAltArr(int arr[], int size) {
     cout<<"Array alternate elements were reversed"<<endl;
 }
 
+//Find the non duplicate element, list sie must always be of 2m+1 type, i.e., odd.
+//better solution is to perform logical XOR(^) of all elements. a^a = 0 and 0^a= a. therefore, directly
+//the non duplicate element can be found...
+void NonDupArr(int arr[], int size) {
+    for (int i = 0; i<size; ++i) {
+        int count = 0;
+        for (int k = 0; k<size; ++k) {
+            if (arr[i]==arr[k]) {
+                continue;
+            }
+            else {
+                count+=1;
+            }
+        }
+        if (count==(size-1)) {
+            cout<<"Non duplicate element is: "<<arr[i]<<endl;
+            break;
+        }
+    }
+    return;
+}
+
+//find dupe element
+//optimsed way with XOR
+void DupArr(int arr[], int size) {
+    for(int i = 0; i<size; ++i) {
+        for(int k=(i+1);k<size; ++k) {
+            if (arr[i]==arr[k]) {
+                 cout<<"Duplicate element is: "<<arr[k]<<endl;
+            }
+        }
+    }
+    return;
+}
+
 
 int main() {
 
@@ -102,7 +137,7 @@ int main() {
 
     MakeArr(arr, n);
     PrintArr(arr, n);
-    MaxArr(arr, n);
+/*    MaxArr(arr, n);
     MinArr(arr, n);
     cout<<"Sum of elements of given list is: "<<SumArr(arr, n)<<endl;
 
@@ -122,6 +157,7 @@ int main() {
     PrintArr(arr, n);
     RevAltArr(arr, n);
     PrintArr(arr, n);
-
+    NonDupArr(arr, n);*/
+    DupArr(arr, n);
     return 0;
 }

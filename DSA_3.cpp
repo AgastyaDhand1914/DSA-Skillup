@@ -12,7 +12,9 @@ int sub_Arr(int arr1[], int arr2[]) {
         return count;
     }
 int main() {
-    int arr1[10] = {1,2,3,4,5,6,7,8,9,10};
+
+// searching for sorted sub array in a pre-defined sorted array 
+/*    int arr1[10] = {1,2,3,4,5,6,7,8,9,10};
     int arr2[3];
     for (int i = 0; i <3; ++i) {
         int n;
@@ -24,6 +26,10 @@ int main() {
     }
     else {
         cout<<"false";
-    }
+    }*/
+
+
+
+
     return 0;
 }
