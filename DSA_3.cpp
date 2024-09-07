@@ -107,11 +107,11 @@ int main() {
     std::vector<std::vector<int>> result = findTriplets(arr, n, k);
     cout<<"Triplets with sum as "<<k<<" are:"<<endl;
     for (const std::vector<int>& num : result) { // Looping through each triplet
-        std::cout << "{ ";
+        cout << "{ ";
         for (int x : num) { // Looping through each element in the triplet
-            std::cout << x << " ";
+            cout << x << " ";
         }
-        std::cout << "}" << std::endl;
+        cout << "}" <<endl;
     }
 
 
