@@ -28,7 +28,7 @@ bool PossibleAllocate(int arr[], int size, int students, int mid) {
     }
     return true;
 }
-
+//
 //*REVISIT THIS PROBLEM*
 //Book allocation problem
 int AllocateBooks(int arr[], int size, int students) {
