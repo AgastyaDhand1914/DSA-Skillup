@@ -146,20 +146,17 @@ void DupArr(int arr[], int size) {
 }
 
 //merge two sorted arrays
-void Merge2Arr(int arr1[], int size1, int arr2[], int size2, int arr3[]) {
+void Merge2Arr(vector<int>&arr1, vector<int>&arr2, vector<int>&arr3) {
     int i = 0, j = 0, k = 0;
+    int size1 = arr1.size(), size2 = arr2.size();
     while(i<size1 && j<size2) {
         if (arr1[i]>arr2[j]) {
-            arr3[k] = arr2[j];
-            cout<<arr3[k]<<" ";
+            arr3.push_back(arr2[j]);
             j++;
-            k++;
         }
         else {
-            arr3[k] = arr1[i];
-            cout<<arr3[k]<<" ";
+            arr3.push_back(arr1[i]);
             i++;
-            k++;
         }
     }
 
@@ -167,18 +164,13 @@ void Merge2Arr(int arr1[], int size1, int arr2[], int size2, int arr3[]) {
 //other array in same sorted order
 //either loop will be executed based on inputed sizes
     while(j<size2) {
-        arr3[k] = arr2[j];
-        cout<<arr3[k]<<" ";
+        arr3.push_back(arr2[j]);
         j++;
-        k++;
     }
 
     while(i<size1) {
-        arr3[k] = arr1[i];
-        cout<<arr3[k]<<" ";
+        arr3.push_back(arr1[i]);
         i++;
-        k++;
-
     }
 
     cout<<endl;
@@ -188,40 +180,38 @@ void Merge2Arr(int arr1[], int size1, int arr2[], int size2, int arr3[]) {
 
 //two sorted arrays with zeroes on end one of array equal to number of elements on second array
 //example: arr1 = [1,2,3,0,0,0] arr2 = [2,5,6]....Result = [1,2,2,3,5,6]
-void merge2Arrinsame(int arr1[], int size1, int arr2[], int size2) {
-    int arr3[max(size1, size2)];
+void merge2Arrinsame(vector<int>&arr1, vector<int>&arr2) {
+    vector<int>num;
+
+    for(int i = 1; i<=arr2.size(); ++i) {
+        arr1.pop_back();
+    }
+
     int i = 0, j = 0, k = 0;
+    int size1 = arr1.size(), size2 = arr2.size();
 
     while(i<size1 && j<size2) {
         if (arr1[i]>arr2[j]) {
-            arr3[k] = arr2[j];
+            num.push_back(arr2[j]);
             j++;
-            k++;
         }
         else {
-            arr3[k] = arr1[i];
+            num.push_back(arr1[i]);
             i++;
-            k++;
         }
     }
 
-/*    while(j<size2) {
-        arr3[k] = arr2[j];
-        j++;
-        k++;
-    }*/
-
-    while(i<(size1-size2)) {
-        arr3[k] = arr2[i-j];
+    while(i<size1) {
+        num.push_back(arr1[i]);
         i++;
-        k++;
-
     }
-    int num = 0;
-
-    for (int l = 0; l<max(size1, size2); l++) {
-        arr1[l] = arr3[l];
+    while(j<size2) {
+        num.push_back(arr2[j]);
+        j++;
     }
+    
+
+    arr1 = num;
 
     cout<<endl;
     return;
@@ -240,11 +230,28 @@ void moveZeroes(int arr[], int size) {
 }
 
 //shift elements to left by k places
+//ex. k = 3, size of array = 5
+//i<k
+//0--> 2 (i+k-1)
+//1--> 3 (i+k-1)
+//2--> 4 (i+k-1)
+//i>=k
+//3--> 0 (i-k)
+//4--> 1 (i-k)
+//shift elements to right by k places
 void Shift_ele_left(int arr[], int size, int k) {
     int arr1[size];
+    k = k%size;
+    int shifted_index;
     for(int i = 0; i<size; ++i) {
-        int shifted_index = (i+k)%(size);
-        arr1[shifted_index] = arr[i];         //to get index location for shifting
+        if (i<k) {
+            shifted_index = (size-k+i);
+            arr1[shifted_index] = arr[i];    //to get index location for shifting
+        }
+        else {
+            shifted_index = (i-k);
+            arr1[shifted_index] = arr[i];    //to get index location for shifting
+        }
     }
     for (int i = 0; i<size; ++i) {
         arr[i] = arr1[i];
@@ -252,24 +259,20 @@ void Shift_ele_left(int arr[], int size, int k) {
 }
 
 //ex. k = 3, size of array = 5
-//i<k
-//0--> 2 (size-k+i)
-//1--> 3 (size-k+i)
-//2--> 4 (size-k+i)
-//i>=k
-//3--> 0 (i-k)
-//4--> 1 (i-k)
+//i<(k-1)
+//0--> 3 (i+k)
+//1--> 4 (i+k)
+//i>=(k-1)
+//2--> 0 ((i+k)%size)
+//3--> 1 ((i+k)%size)
+//4--> 2 ((i+k)%size)
 //shift elements to right by k places
 void Shift_ele_right(int arr[], int size, int k) {
     int arr1[size];
     int shifted_index;
+    k = k%size;
     for(int i = 0; i<size; ++i) {
-        if (i<k) {
-            shifted_index = (size-k+i);        //to get index location for shifting
-        }
-        else {
-            shifted_index = (i-k);
-        }
+        shifted_index = (i+k)%size;
 
         arr1[shifted_index] = arr[i];
     }
@@ -329,22 +332,28 @@ int main() {
 
 // inputting array
 
-    int n1, n2;
+    int n1, k, n2;
     cout<<"Enter sizes of arr1 and arr2 respectively: "<<endl;
     cin>>n1>>n2;
 //    cout<<"Enter places to shift:"<<endl;
 //    cin>>k;
     vector<int>arr1;
     vector<int>arr2;
-//    int arr2[n2];
-
+    vector<int>arr3;
+//    int arr1[n1];
+//    int arr_dup[n1];
 //    int arr3[n1+n2];
-
     MakeVec(arr1, n1);
     MakeVec(arr2, n2);
+
+/*    for (int i = 0; i<n1; ++i) {
+        arr_dup[i] = arr1[i];
+    }*/
+//    MakeVec(arr1, n1);
+//    MakeVec(arr2, n2);
 //    MakeArr(arr2, n2);
-    PrintVec(arr1, n1);
-    PrintVec(arr2, n2);
+//    PrintVec(arr1, n1);
+//    PrintVec(arr2, n2);
 //    PrintArr(arr2, n2);
 /*    MaxArr(arr, n);
     MinArr(arr, n);
@@ -372,10 +381,20 @@ int main() {
 //    merge2Arrinsame(arr1, n1, arr2, n2);
 //    PrintArr(arr1, n1);
 //    moveZeroes(arr1, n1);
-//    Shift_ele_right(arr1, n1, k);
-    add_two_arr(arr1, arr2);
-    cout<<"Addition: "<<endl;
+//    cout<<"Left Shift: "<<endl;
+//    Shift_ele_left(arr1, n1, k);
+//    PrintArr(arr1, n1);
+//    cout<<"Right Shift: "<<endl;
+//    Shift_ele_right(arr_dup, n1, k);
+//    PrintArr(arr_dup, n1);
+//    add_two_arr(arr1, arr2);
+//    cout<<"Addition: "<<endl;
+//    PrintVec(arr1, arr1.size());
+//    PrintArr(arr1, n1);
+
+    merge2Arrinsame(arr1, arr2);
     PrintVec(arr1, arr1.size());
+
 
     return 0;
 }
